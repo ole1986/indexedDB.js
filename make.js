@@ -3,8 +3,7 @@ var compressor = require('node-minify');
 
 // Using Google Closure
 new compressor.minify({
-    type: 'gcc',
-    language: 'ECMASCRIPT5',
+    type: 'uglifyjs',
 	fileIn: 'src/*.js',
     fileOut: 'build/indexedDB.min.js',
 	
