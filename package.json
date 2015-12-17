@@ -1,0 +1,7 @@
+{
+  "name": "indexedDBWrapper",
+  "version": "1.0.0",
+  "dependencies": {
+    "node-minify": "~1.3.7"
+  }
+}

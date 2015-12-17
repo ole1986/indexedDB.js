@@ -1,0 +1,95 @@
+<html>
+	<head>
+		<title>IndexedDBWrapper Demo</title>
+		<style>
+			body { font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 1em; color: #666666; margin: 1em;}
+			.label { font-size: smaller; display: inline-block; margin-left: 0.3em; }
+			form { border: 1px solid #ccc; padding: 0.5em; display: inline-block; }
+		</style>
+		<script type="text/javascript" src="../src/indexedDB.js"></script>
+		<script type="text/javascript">
+			var $indexedDB;
+		
+			var onReady = function(event) {
+				//do work
+				$indexedDB = new IndexedDBWrapper('mydatabase', {debug: 1});
+				
+				$indexedDB.OnUpgrade = function(db, oldVersion, newVersion){
+					// initial database creation
+					if(newVersion == 1) {
+						$indexedDB.CREATE('test', 'key');
+					}
+				};
+				// insert data when successfully opened
+				$indexedDB.open(function(){ insertData(1,'Test 123'); })
+				
+				// submit event
+				document.getElementById('btnInsert').onclick = function(){
+					var txtKey = document.getElementById('txtKey');
+					var txtName = document.getElementById('txtName');
+					insertData(parseInt(txtKey.value), txtName.value);
+					console.log('data added');
+				};
+			};
+		
+			var displayContent = function(data){
+				if(!data) console.error('Data is empty. Something went wrong');
+				
+				var list = document.getElementById('list');
+				list.innerHTML = '';
+				var item = document.getElementById('row');
+				
+				for(var i = 0; i < data.length; i++) {
+					var keyContainer = document.getElementById('rowKey');
+					var nameContainer = document.getElementById('rowName');
+				
+					keyContainer.innerText = data[i].key;
+					nameContainer.innerText = data[i].name;
+				
+					var clone = item.cloneNode(true);
+					clone.id = '';
+					clone.attributes.getNamedItem('style').value = '';
+					
+					list.appendChild(clone);
+				}
+			};
+			
+			var readAll = function(tableName){
+				$indexedDB.SELECT(tableName, null, displayContent);
+			};
+			
+			var clearTable = function(tableName){
+				$indexedDB.DELETEALL(tableName, function(){ document.location.reload(); });
+			}
+			
+			var insertOk = function(){
+				readAll('test');
+			};
+			
+			var insertData = function(k,n){
+			// db successfully opened and test table added
+				$indexedDB.INSERT('test', {key: k, name: n}, insertOk);
+			};
+			
+			document.addEventListener("DOMContentLoaded", onReady);
+			
+		</script>
+	</head>
+	<body>
+		<h1>IndexedDB</h2>
+		<p>You can reopen the browser to recover the data being stored in indexedDB</p>
+		<h3>Example #1</h3>
+		<div id="row" style="display: none">
+			<span class="label">Key:</span> <span id="rowKey"></span>
+			<span class="label">Name:</span> <span id="rowName"></span>
+		</div>
+		<div id="list"></div>
+		<div>&nbsp;</div>
+		<form>
+			<span class="label">Enter Key: </span><input type="text" id="txtKey" />
+			<span class="label">Enter Name: </span><input type="text" id="txtName" />
+			<input type="submit" id="btnInsert" value="Add/Update" />
+		</form>
+		<div><input type="button" value="Clear" onclick="clearTable('test')">
+	</body>
+</html>
