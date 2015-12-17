@@ -1,8 +1,6 @@
 # IndexedDB Wrapper script (no jquery required)
 
-The IndexedDB Wrapper is used to SELECT, DELETE, INSERT and CREATE database object stores more easily using the HTML5 Indexed Database API.
-
-**No additional libraries are required**
+The IndexedDB Wrapper is used to SELECT, DELETE, INSERT and CREATE database object stores more easily using the HTML5 Indexed Database API. **No additional libraries are required**
 
 http://www.w3.org/TR/IndexedDB/ - IndexedDB on W3.ORG
 
