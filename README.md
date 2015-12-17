@@ -2,6 +2,10 @@
 
 The IndexedDB Wrapper is used to SELECT, DELETE, INSERT and CREATE database object stores more easily using the HTML5 Indexed Database API. **No additional libraries are required**
 
+<p align="center"><img src="../../blob/gh-pages/images/IndexedDBWrapper-first.png"></p>
+
+
+---
 http://www.w3.org/TR/IndexedDB/ - IndexedDB on W3.ORG
 
 http://caniuse.com/#feat=indexeddb - Browser support
@@ -10,7 +14,7 @@ http://caniuse.com/#feat=indexeddb - Browser support
 
 Include the indexedDB.js file into the HTML document using &lt;script&gt; Tag
 
-```
+```html
 <script type="text/javascript" src="../src/indexedDB.js"></script>
 ```
 
