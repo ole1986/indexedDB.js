@@ -17,7 +17,7 @@ Include the indexedDB.js file into the HTML document using &lt;script&gt; Tag
 Checkout examples/first.html for a fully working (but limited) example
 
 ## Example
-```
+```javascript
 $indexedDB = new IndexedDBWrapper('<databaseName>', {debug: 1});
 $indexedDB.addTable( 'test', 'key', [] );
  
