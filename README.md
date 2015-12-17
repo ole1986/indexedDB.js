@@ -19,8 +19,14 @@ Checkout examples/first.html for a fully working (but limited) example
 ## Example
 ```javascript
 $indexedDB = new IndexedDBWrapper('<databaseName>', {debug: 1});
-$indexedDB.addTable( 'test', 'key', [] );
- 
+
+$indexedDB.OnUpgrade = function(db, oldVersion, newVersion){
+	// initial database creation
+	if(newVersion == 1) {
+		$indexedDB.CREATE('test', 'key');
+	}
+};
+
 var readAll = function(tableName){
 	$indexedDB.SELECT(tableName, null, function(data){ console.log(data); });
 };
